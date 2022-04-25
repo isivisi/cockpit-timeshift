@@ -1,21 +1,31 @@
 //import cockpit from 'cockpit';
 
 const backupRegex = /([0-9]*).*\>.*([0-9]{4}.* ) ([A-Z].*)/g;
+const snapshotDataRegex = /[0-9].* snapshots/
+const freespaceRegex = / [0-9].* free/
 
 const backuplist = document.getElementById("backuplist");
+const details = document.getElementById("details");
 
 async function getBackups() {
-    var output;
+    var output = []
     await cockpit.spawn(["timeshift", "--list"], options={superuser:true})
     .stream(out => {
         console.log(output)
-        output = out.toString();
+        output.push(out)
     })
-    return output
+    return output.toString()
 }
 
 async function update() {
     getBackups().then(backupsRaw => {
+
+        var snapshots = backupsRaw.match(snapshotDataRegex);
+        var freeSpace = backupsRaw.match(freespaceRegex)
+
+        details.innerHTML = `<p>${snapshots}</p>
+        <p>${freeSpace}</p>`
+
         var backups = [...backupsRaw.matchAll(backupRegex)]
         for (var i = 0; i < backups.length; i++) {
             var backup = backups[i]
