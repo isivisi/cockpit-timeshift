@@ -1,4 +1,4 @@
-import cockpit from 'cockpit';
+//import cockpit from 'cockpit';
 
 const backupRegex = /([0-9]*).*\>.*([0-9]{4}.* ) ([A-Z].*)/;
 

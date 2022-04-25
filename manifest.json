@@ -3,7 +3,8 @@
 
     "tools": {
         "timeshift": {
-            "label": "Backups"
+            "label": "Backups",
+            "path": "timeshift.html"
         }
     },
 
