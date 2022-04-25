@@ -10,4 +10,4 @@ async function getBackups() {
         });
 }
 
-getBackups()
+await getBackups()
